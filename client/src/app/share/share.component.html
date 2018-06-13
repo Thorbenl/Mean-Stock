@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col s12">
+   <div class="card">
+      <div class="card-content white-text">
+       <div class="row">
+         <div class="col s5">
+          <form #shareForm="ngForm" (ngSubmit)="onSubmit(shareForm)">
+            <input type="hidden"
+                   name="_id" #_id="ngModel"
+                   [(ngModel)]="shareService.selectedShare._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text"
+                       name="name"
+                       #name="ngModel"
+                       [(ngModel)]="shareService.selectedShare.name"
+                       required
+                       placeholder="Enter your Name">
+                <label>Name:
+                  <label class="red-text">*</label>
+                </label>
+              </div>
+              <div class="input-field col s12">
+                <input type="text"
+                       name="value"
+                       [(ngModel)]="shareService.selectedShare.value"
+                       class="form-control"
+                       required
+                       >
+                <label>Value:
+                  <label class="red-text">*</label>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn btn-custom right"
+                        type="button"
+                        (click)="resetForm(shareForm)">Reset</button>
+                <button class="btn btn-custom right"
+                        type="submit"
+                        [disabled]="!shareForm.valid">Submit</button>
+              </div>
+            </div>
+          </form>
+         </div>
+         <div class="col s7">
+          <table class="responsive-table highlight">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tr *ngFor="let share of shareService.shares">
+              <td>{{share.name}}</td>
+              <td *ngFor="let rate of share.rates">
+                {{rate.value}}
+              </td>
+              <td>
+                <a class="action-btn" (click)="onEdit(share)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a class="action-btn" (click)="onDelete(share._id,shareForm)">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+          </table>
+         </div>
+       </div>
+      </div>
+   </div>
+  </div>
+</div>
